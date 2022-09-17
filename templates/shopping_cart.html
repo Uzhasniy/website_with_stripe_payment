@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Корзина
+{% endblock %}
+
+{% block content %}
+    {% if order %}
+        {% for i in order %}
+            <div class="d-flex justify-content-center">
+                <div class="card">
+                    <div class="card-header">
+                        Товаров в корзине: {{ count }}
+                    </div>
+                    <div class="card-body" style="width: 45rem;">
+                        <h5 class="card-title">{{ i.display_items }}</h5>
+                        <img src="https://dummyimage.com/600x400/bad1ff/000000.png" class="card-img-top" alt="заглушка">
+                        <h5 class="card-title">{{ i.amount_rub }} ₽</h5>
+                        <form action="/shopping_cart_checkout-session" method="POST">{% csrf_token %}
+                            <button class="btn btn-success" type="submit">Buy</button>
+                        </form>
+                        <a class="btn btn-danger mb-3 mt-3" href="shop_delete/{{i.id}}">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Корзина пуста :(</p>
+    {% endif %}
+
+    
+{% endblock %}

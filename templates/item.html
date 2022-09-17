@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ item.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+            Оформление товара
+        </div>
+        <div class="card-body" style="width: 45rem;">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <img src="https://dummyimage.com/600x400/bad1ff/000000.png" class="card-img-top" alt="заглушка">
+            <h5 class="card-title">{{ item.normalize_price }} ₽</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <form action="/create-checkout-session" method="POST">{% csrf_token %}
+                <button class="btn btn-primary" type="submit">Buy</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

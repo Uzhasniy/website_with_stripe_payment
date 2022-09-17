@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+API
+{% endblock %}
+
+{% block content %}
+<h3>Добавление товара</h3>
+<form method="POST" action="create/">
+    {% csrf_token %}    
+    <div class="input-group mb-3 mt-3">
+        <span class="input-group-text">Введите название</span>
+        <input type="text" name="name" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Введите цену(коп.)</span>
+        <input type="number" name="price" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">Введите описание</span>
+        <textarea type="text" name="description" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-5">Сохранить</button>
+</form>
+<h3>Все товары</h3>
+{% if items %}
+    <ul class="list-group list-group-horizontal">
+    {% for i in items %}
+        <li class="list-group-item">{{ i.name }} | {{ i.normalize_price }}₽<br> <a href="edit/{{i.id}}">Изменить</a><br><a href="delete/{{i.id}}">Удалить</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Товаров нет :(</p>
+{% endif %}
+{% endblock %}
